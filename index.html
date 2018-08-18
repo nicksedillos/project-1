@@ -1,12 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE <!DOCTYPE html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
 </head>
 <body>
-	testing git push
+
+<nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#">Locations</a>
+        <a class="nav-item nav-link" href="#">Categories</a>
+        </div>
+    </div>
+</nav>
+    
+<div class="container">
+    <div class="formHeader">
+        <strong>
+            <i class="fa fa-list-alt"></i> Item List</strong>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Price
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Hot Cheetos
+                </td>
+                <td>
+                    2
+                </td>
+                <td>
+                    Snacks
+                </td>
+                <td>
+                    Pantry
+                </td>
+                <td>
+                    $2.99
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Paper Towels
+                </td>
+                <td>
+                    1
+                </td>
+                <td>
+                    Cleaning Supplies
+                </td>
+                <td>
+                    Supply Closet
+                </td>
+                <td>
+                    $9.99
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form>
+        <div class="row">
+            <div class="col">
+            <input type="text" class="form-control" placeholder="Item">
+            </div>
+            <div class="col">
+            <input type="text" class="form-control" placeholder="Last name">
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
