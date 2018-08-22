@@ -44,9 +44,11 @@ var catagory = childSnapshot.val().catagory
 var location = childSnapshot.val().location
 var price = childSnapshot.val().price
 
+var quantAdd = $("<button class='button button1'>").text("+");
+var quantSub = $("<button class='button button2'>").text("-");
 var newRow = $("<tr>").append(
     $("<td>").text(item),
-    $("<td>").text(quantaty),
+    $("<td>").text(quantaty).prepend(quantAdd,quantSub),
     $("<td>").text(catagory),
     $("<td>").text(location),
     $("<td>").text(price)
