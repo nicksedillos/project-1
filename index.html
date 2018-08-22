@@ -29,89 +29,63 @@
     
 <div class="container">
     <div class="formHeader">
-        <strong>
-            <i class="fa fa-list-alt"></i> Item List</strong>
-
+          Item List
+                <input id="submit" type="submit" value="submit">
     </div>
+    
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    Item
+                <form>
+                <th>Item
+                        <input id="item" type="text" class="form-control" placeholder="Item">
                 </th>
-                <th>
-                    Quantity
+                <th>Quantity
+                        <input id="quantaty" type="text" class="form-control" placeholder="#">
                 </th>
-                <th>
-                    Category
+                <th>Category
+                        <input id="catagory" type="text" class="form-control" placeholder="Catagory">
                 </th>
-                <th>
-                    Location
+                <th>Location
+                        <input id="location" type="text" class="form-control" placeholder="Location">
                 </th>
-                <th>
-                    Price
+                <th>Price
+                        <input id="price" type="text" class="form-control" placeholder="Price">
                 </th>
-
+               
+            </form>
             </tr>
         </thead>
+        
         <tbody>
+            
             <tr>
-                <td>
-                    Hot Cheetos
-                </td>
-                <td>
-                    2
-                </td>
-                <td>
-                    Snacks
-                </td>
-                <td>
-                    Pantry
-                </td>
-                <td>
-                    $2.99
-                </td>
+                <td>Hot Cheetos</td>
+                <td> 2</td>
+                <td> Snacks</td>
+                <td>Pantry</td>
+                <td></td>
             </tr>
             <tr>
-                <td>
-                    Paper Towels
-                </td>
-                <td>
-                    1
-                </td>
-                <td>
-                    Cleaning Supplies
-                </td>
-                <td>
-                    Supply Closet
-                </td>
-                <td>
-                    $9.99
-                </td>
+                <td>Paper Towels</td>
+                <td>1</td>
+                <td>Cleaning Supplies</td>
+                <td>Supply Closet</td>
+                <td>$9.99</td>
             </tr>
         </tbody>
     </table>
 
-    <form id="entryForm">
-        <div class="row">
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Item">
-            </div>
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Price">
-            </div>
-            <div class="col">
-                <button class="button button1">+</button>
-                <button class="button button2">-</button>
-            </div>
-        </div>
-    </form>
-
+    
+    
 </div>
-
+<!-- <div class="col-2">
+        <button class="button button1">+</button>
+        <button class="button button2">-</button>
+    </div> -->
 
 
 <script src="https://code.jquery.com/jquery.js"></script>
-<script src="main.js"></script>
+<script src="assets/javascript/main.js"></script>
 </body>
 </html>
