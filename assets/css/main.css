@@ -2,6 +2,7 @@ body {
     background-image: url(../images/abstract-art-board-139321\ \(1\).jpg);
     background-size: 100%;
     height: 100%;
+    line-height: 1.25
 }
 
 
@@ -39,7 +40,7 @@ input {
 table {
 
     font-family: 'Fredericka the Great', cursive;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 thead {
@@ -48,12 +49,11 @@ thead {
 
 tbody {
     color:#70dbdb;
-    ;
 }
 
 .navbar {
     font-family: 'Baloo Bhai', cursive;
-    font-size: 3em;
+    font-size: 2em;
     color: black;
 }
 

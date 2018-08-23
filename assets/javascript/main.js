@@ -1,59 +1,101 @@
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyD_a_1FWqhyWixQ1kusQNchcDb-MUrbLWk",
-    authDomain: "home-inventory-manager.firebaseapp.com",
-    databaseURL: "https://home-inventory-manager.firebaseio.com",
-    projectId: "home-inventory-manager",
-    storageBucket: "home-inventory-manager.appspot.com",
-    messagingSenderId: "165919673421"
-  };
-  firebase.initializeApp(config);
-
-  var database = firebase.database();
-
-  $("#submit").on("click", function(event){
-    event.preventDefault();
-
-var itemName = $("#item").val().trim();
-var quantaty = $("#quantaty").val().trim();
-var catagory = $("#catagory").val().trim();
-var location = $("#location").val().trim();
-var price = $("#price").val().trim();
-
-var newItem = {
-    item: itemName,
-    quantaty: quantaty,
-    catagory: catagory,
-    location: location,
-    price: price
+// Initialize Firebase
+const config = {
+  apiKey: "AIzaSyD_a_1FWqhyWixQ1kusQNchcDb-MUrbLWk",
+  authDomain: "home-inventory-manager.firebaseapp.com",
+  databaseURL: "https://home-inventory-manager.firebaseio.com",
+  projectId: "home-inventory-manager",
+  storageBucket: "home-inventory-manager.appspot.com",
+  messagingSenderId: "165919673421"
 };
-database.ref().push(newItem);
-console.log(newItem.item);
-console.log(newItem.quantaty);
-console.log(newItem.catagory);
-console.log(newItem.location);
-console.log(newItem.price);
+
+firebase.initializeApp(config);
+
+const database = firebase.database();
+
+//Add item functionality 
+$("#addItem").on("click", function(event){
+  event.preventDefault();
+  $(`#error-message`).remove()
+  const errorAlert = $(`<div>`);
+    errorAlert.addClass(`alert alert-danger`)
+    errorAlert.attr(`id`,`error-message`)
+
+  const itemName = $("#item").val().trim();
+      if (itemName === ""){
+        errorAlert.html(`Add a name for the item`)
+        $("#item").after(errorAlert);
+        return;
+    } 
+  const quantity = $("#quantity").val().trim();
+      if (quantity === ""){
+        errorAlert.html(`Add a quantity`)
+        $("#quantity").after(errorAlert);
+        return;
+    } 
+  const category = $("#category").val().trim();
+      if (category === ""){
+        errorAlert.html(`Add a category`)
+        $("#category").after(errorAlert);
+        return;
+    } 
+  const location = $("#location").val().trim();
+      if (location === ""){
+        errorAlert.html(`Add where the item is stored`)
+        $("#location").after(errorAlert);
+        return;
+      } 
+  const price = $("#price").val().trim();
+      if (price === ""){
+        errorAlert.html(`What was the price?`)
+        $("#price").after(errorAlert);
+        return;
+      }
+
+  database.ref(`/itemList`).push({
+    item: itemName,
+    quantity: quantity,
+    category: category,
+    location: location,
+    price: price,
+    dateAdded: firebase.database.ServerValue.TIMESTAMP,
+  });
+
+  document.getElementById("addNewItem").reset()
 });
 
 
-database.ref().on("child_added", function(childSnapshot) {
+// Appends all Firebase datat to the table
+database.ref(`/itemList`).on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
-var item = childSnapshot.val().item
-var quantaty = childSnapshot.val().quantaty
-var catagory = childSnapshot.val().catagory
-var location = childSnapshot.val().location
-var price = childSnapshot.val().price
 
-var quantAdd = $("<button class='button button1'>").text("+");
-var quantSub = $("<button class='button button2'>").text("-");
-var newRow = $("<tr>").append(
-    $("<td>").text(item),
-    $("<td>").text(quantaty).prepend(quantAdd,quantSub),
-    $("<td>").text(catagory),
-    $("<td>").text(location),
-    $("<td>").text(price)
-  );
+    const item = childSnapshot.val().item
+    const quantity = childSnapshot.val().quantity
+    const category = childSnapshot.val().category
+    const location = childSnapshot.val().location
+    const price = childSnapshot.val().price
 
-  $(".table > tbody").append(newRow);
+    const quantAdd = $("<button class='button button1'>").html("+");
+    const quantSub = $("<button class='button button2'>").html("-");
+    const newRow = $("<tr>").append(
+        $("<td>").html(item),
+        $("<td>").html(quantity).prepend(quantAdd,quantSub),
+        $("<td>").html(location),
+        $("<td>").html(category),
+        $("<td>").html(price)
+      );
 
+      $("#itemBody").prepend(newRow);
+
+  }, function(errorObject) {
+  console.log("Errors handled: " + errorObject.code);
 }); 
+
+// Search funtionaltiy at the top
+$(document).ready(function(){
+  $("#searchInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#itemBody tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
