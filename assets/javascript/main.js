@@ -11,6 +11,7 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+var clicked
 
 //Add item functionality 
 $("#addItem").on("click", function(event){
@@ -98,4 +99,18 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+
+$(".listItem").on("click", function(){
+     clicked = $(this).text().toLowerCase();
+    $("#itemBody tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
+    });
+});
+
+$(".headerName").on("click", function(){
+    clicked = ""
+   $("#itemBody tr").filter(function() {
+       $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
+   });
 });

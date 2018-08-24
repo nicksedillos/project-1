@@ -14,12 +14,9 @@ body {
     font-size: 1.5em;
     color:  #668cff;
     padding: 25px;
-    /* margin-top: 50px; */
     margin: 25px auto;
-    /* margin-bottom: 50px; */
     border: 2px solid #333333;
     border-radius: 25px;
-    /* height: 500px; */
     height: 90%;
 }
 
@@ -31,7 +28,7 @@ body {
 input {
     margin: 10px 0px;
 }
-#submit{
+#addItem{
     float:right;
     background-color: #ffbb99;
     color: #ffeeee;
@@ -67,12 +64,11 @@ tbody {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    /* margin: 4px 2px; */
     cursor: pointer;
 }
 
 .button2 {
-    background-color: #ffbb99; /* Green */
+    background-color: #ffbb99;
     border: none;
     border-radius: 4px;
     color: white;
@@ -81,15 +77,9 @@ tbody {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    /* margin: 4px 2px; */
     cursor: pointer;
 }
-
-/* .container{
-    position: relative;
+.dropdown:hover>.dropdown-menu {
+    display: block;
 }
 
-#entryForm{
-    position: absolute;
-    bottom: 0px;
-} */
