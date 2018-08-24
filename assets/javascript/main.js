@@ -64,6 +64,8 @@ $("#addItem").on("click", function(event){
 });
 
 
+
+
 // Appends all Firebase datat to the table
 database.ref(`/itemList`).on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
@@ -75,15 +77,18 @@ database.ref(`/itemList`).on("child_added", function(childSnapshot) {
     const price = childSnapshot.val().price
 
     const quantAdd = $("<button class='button button1'>").html("+");
+    const quantSlash = $("<span></span>").html("/");
     const quantSub = $("<button class='button button2'>").html("-");
+    const quantSpace = $("<span></span>").html(" ")
     const newRow = $("<tr>").append(
-        $("<td>").html(item),
-        $("<td>").html(quantity).prepend(quantAdd,quantSub),
-        $("<td>").html(location),
-        $("<td>").html(category),
-        $("<td>").html(price)
+       
+        $(`<td data-item=${item}>`).html(item),
+        $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
+        $(`<td data-item=${item}>`).html(location),
+        $(`<td data-item=${item}>`).html(category),
+        $(`<td data-item=${item}>`).html(price)
       );
-
+      
       $("#itemBody").prepend(newRow);
 
   }, function(errorObject) {
@@ -99,3 +104,43 @@ $(document).ready(function(){
     });
   });
 });
+
+// $('.button1').on("click", function() {
+
+//   database.orderByChild(`/itemList`).equalTo(item).on("click", function() {
+//     console.log(snapshot.key);
+
+//     console.log(childSnapshot.val());
+
+//     const item = childSnapshot.val().item
+//     const quantity = childSnapshot.val().quantity
+//     const category = childSnapshot.val().category
+//     const location = childSnapshot.val().location
+//     const price = childSnapshot.val().price
+//     const add = childSnapshot.val().quanitity;
+
+
+//     const quantAdd = $("<button class='button button1'>").html("+");
+//     const quantSlash = $("<span></span>").html("/");
+//     const quantSub = $("<button class='button button2'>").html("-");
+//     const quantSpace = $("<span></span>").html(" ")
+
+
+//     add++;
+//     const newRow = $("<tr>").append(
+       
+//         $(`<td data-item=${item}>`).html(item),
+//         $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
+//         $(`<td data-item=${item}>`).html(location),
+//         $(`<td data-item=${item}>`).html(category),
+//         $(`<td data-item=${item}>`).html(price)
+//       );
+      
+//       $("#itemBody").prepend(newRow);
+
+//   }, function(errorObject) {
+//   console.log("Errors handled: " + errorObject.code);
+// });
+// });
+
+  
