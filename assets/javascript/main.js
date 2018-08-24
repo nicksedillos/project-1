@@ -11,7 +11,9 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
-var clicked
+let clicked = null;
+let locationStorage = [];
+let categoryStorage = [];
 
 //Add item functionality 
 $("#addItem").on("click", function(event){
@@ -64,37 +66,100 @@ $("#addItem").on("click", function(event){
   document.getElementById("addNewItem").reset()
 });
 
+// Function to create table head, form input, and the table body to display the database data.
+function createTable() {
+    $(`#displayDiv`).empty();
+    
+    const table = $(`<table class="table">`)
+    const tableHead = $(`<thead>`);
+    const tHeadRow = $(`<tr>`);
+    const tableHeaders = ["Item","Quantity","Location","Category","Price"]
+    for (i of tableHeaders) {
+        const tHeader = $(`<th>`)
+          tHeader.html(i)
+          tHeadRow.append(tHeader);
+    }
 
+    tableHead.append(tHeadRow);
+
+    const formRow = $(`<tr>`);
+    const formPlaceholders = ["Milk","#","Location","Category","Price"]
+    for (let i = 0; i < tableHeaders.length; i++){
+      const tCol = $(`<th>`);
+      const input = $(`<input>`);
+      if(formPlaceholders[i] === "#"){
+        input.attr({
+          "id": tableHeaders[i].toLowerCase(),
+          "placeholder": formPlaceholders[i],
+          "type": "number",
+          "min": "0"
+        });
+      } else {
+        input.attr({
+          "id": tableHeaders[i].toLowerCase(),
+          "placeholder": formPlaceholders[i],
+          "type": "text",
+      });
+    }
+      input.addClass(`form-control`);
+
+      tCol.append(input);
+      formRow.append(tCol);
+    }
+
+    table.append(tableHead);
+    table.append(formRow);
+    table.append(`<tbody id="itemBody">`)
+    $(`#displayDiv`).append(table);
+}
 
 
 // Appends all Firebase datat to the table
-database.ref(`/itemList`).on("child_added", function(childSnapshot) {
-    console.log(childSnapshot.val());
+function displayTable() {
+  createTable();
 
-    const item = childSnapshot.val().item
-    const quantity = childSnapshot.val().quantity
-    const category = childSnapshot.val().category
-    const location = childSnapshot.val().location
-    const price = childSnapshot.val().price
+  database.ref(`/itemList`).on("child_added", function(childSnapshot) {
+      console.log(childSnapshot.val());
 
-    const quantAdd = $("<button class='button button1'>").html("+");
-    const quantSlash = $("<span></span>").html("/");
-    const quantSub = $("<button class='button button2'>").html("-");
-    const quantSpace = $("<span></span>").html(" ")
-    const newRow = $("<tr>").append(
-       
-        $(`<td data-item=${item}>`).html(item),
-        $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
-        $(`<td data-item=${item}>`).html(location),
-        $(`<td data-item=${item}>`).html(category),
-        $(`<td data-item=${item}>`).html(price)
-      );
+      const item = childSnapshot.val().item
+      const quantity = childSnapshot.val().quantity
+      const category = childSnapshot.val().category
+      const location = childSnapshot.val().location
+      const price = childSnapshot.val().price
       
-      $("#itemBody").prepend(newRow);
 
-  }, function(errorObject) {
-  console.log("Errors handled: " + errorObject.code);
-}); 
+      const quantAdd = $("<button class='button button1'>").html("+");
+      const quantSlash = $("<span></span>").html("/");
+      const quantSub = $("<button class='button button2'>").html("-");
+      const quantSpace = $("<span></span>").html(" ")
+      const newRow = $("<tr>").append(
+        
+          $(`<td data-item=${item}>`).html(item),
+          $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
+          $(`<td data-item=${item}>`).html(location),
+          $(`<td data-item=${item}>`).html(category),
+          $(`<td data-item=${item}>`).html(price)
+        );
+        
+        $("#itemBody").prepend(newRow);
+
+    }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  }); 
+}
+// Initiates the table creation
+displayTable();
+
+// Create Location dropdown
+function category() {
+    for(i of categoryStorage){
+
+      const dropdown = $(`<a>`);
+      dropdown.addClass(`dropdown-item listItem`);
+      dropdown.html(i)
+      $(`#categoryDropdown`).append(dropdown);
+    }
+}
 
 // Search funtionaltiy at the top
 $(document).ready(function(){
@@ -106,14 +171,14 @@ $(document).ready(function(){
   });
 });
 
-
+// filter based on click
 $(".listItem").on("click", function(){
      clicked = $(this).text().toLowerCase();
     $("#itemBody tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
     });
 });
-
+// Filter table based on click.
 $(".headerName").on("click", function(){
     clicked = ""
    $("#itemBody tr").filter(function() {
@@ -121,41 +186,10 @@ $(".headerName").on("click", function(){
    });
 });
 
-// $('.button1').on("click", function() {
-
-//   database.orderByChild(`/itemList`).equalTo(item).on("click", function() {
-//     console.log(snapshot.key);
-
-//     console.log(childSnapshot.val());
-
-//     const item = childSnapshot.val().item
-//     const quantity = childSnapshot.val().quantity
-//     const category = childSnapshot.val().category
-//     const location = childSnapshot.val().location
-//     const price = childSnapshot.val().price
-//     const add = childSnapshot.val().quanitity;
-
-
-//     const quantAdd = $("<button class='button button1'>").html("+");
-//     const quantSlash = $("<span></span>").html("/");
-//     const quantSub = $("<button class='button button2'>").html("-");
-//     const quantSpace = $("<span></span>").html(" ")
-
-
-//     add++;
-//     const newRow = $("<tr>").append(
-       
-//         $(`<td data-item=${item}>`).html(item),
-//         $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
-//         $(`<td data-item=${item}>`).html(location),
-//         $(`<td data-item=${item}>`).html(category),
-//         $(`<td data-item=${item}>`).html(price)
-//       );
-      
-//       $("#itemBody").prepend(newRow);
-
-//   }, function(errorObject) {
-//   console.log("Errors handled: " + errorObject.code);
-// });
-// });
-
+$(`body`).on(`click`, `#itemList`, function(){
+  if($(this).text() === "Item List"){
+    return;
+  } else {
+    displayTable();
+  }
+})
