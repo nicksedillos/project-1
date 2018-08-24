@@ -11,6 +11,7 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+var clicked
 
 //Add item functionality 
 $("#addItem").on("click", function(event){
@@ -105,6 +106,21 @@ $(document).ready(function(){
   });
 });
 
+
+$(".listItem").on("click", function(){
+     clicked = $(this).text().toLowerCase();
+    $("#itemBody tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
+    });
+});
+
+$(".headerName").on("click", function(){
+    clicked = ""
+   $("#itemBody tr").filter(function() {
+       $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
+   });
+});
+
 // $('.button1').on("click", function() {
 
 //   database.orderByChild(`/itemList`).equalTo(item).on("click", function() {
@@ -143,4 +159,3 @@ $(document).ready(function(){
 // });
 // });
 
-  
