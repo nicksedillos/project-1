@@ -19,85 +19,58 @@
 
 <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown headerName" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Item List
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Analytics</a>
-                                   
-                                </div>
-                        </li>
-
-
-                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Locations
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item listItem" href="#">Fridge</a>
-                                    <a class="dropdown-item listItem" href="#">Freezer</a>
-                                    <a class="dropdown-item listItem" href="#">Supply CLoset</a>
-                                </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                                <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Catagory
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item listItem" href="#">Dinner</a>
-                                    <a class="dropdown-item listItem" href="#">Dairy</a>
-                                    <a class="dropdown-item listItem" href="#">Cleaning</a>
-                                </div>
-                        </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control" id="searchInput" type="text" placeholder="Search table..">
-                        <input id="addItem" type="submit" value="Add Item">
-                  </form>
-
-                </div>
-              </nav>
-
-
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown headerName" id="itemList" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Item List
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Analytics</a>
+                            </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Locations
+                            </a>
+                            <div id="locationDropdown" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item listItem" href="#">Fridge</a>
+                                <a class="dropdown-item listItem" href="#">Freezer</a>
+                                <a class="dropdown-item listItem" href="#">Supply CLoset</a>
+                            </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Category
+                            </a>
+                            <div id="categoryDropdown" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item listItem" href="#">Dinner</a>
+                                <a class="dropdown-item listItem" href="#">Dairy</a>
+                                <a class="dropdown-item listItem" href="#">Cleaning</a>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control" id="searchInput" type="text" placeholder="Search table..">
+                <input id="addItem" type="submit" value="Add Item">
+            </form>
+        </nav>
         
-<div id="displayDiv">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Location</th>
-                <th>Category</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tr>
-            <form id="addNewItem">
-                <th><input id="item" type="text" class="form-control" placeholder="Milk"></th>
-                <th><input id="quantity" type="number" min="0" class="form-control" placeholder="#"></th>
-                <th><input id="location" type="text" class="form-control" placeholder="Location"></th>
-                <th><input id="category" type="text" class="form-control" placeholder="Catagory"></th>
-                <th><input id="price" type="text" class="form-control" placeholder="Price"></th>
-            </form> 
-        </tr>
-        <tbody id="itemBody"></tbody>
-    </table>
-</div>
+<div id="displayDiv"></div>
 
 </div>
+<!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <!-- Jquery -->
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+<script src="https://code.jquery.com/jquery.js"></script>
 <!-- Custom Javascript-->
 <script src="assets/javascript/main.js"></script>
 
