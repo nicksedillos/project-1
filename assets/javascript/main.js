@@ -15,7 +15,7 @@ let clicked = null;
 let locationStorage = [];
 let categoryStorage = [];
 
-//Add item functionality 
+// Add Item functionality 
 $("#addItem").on("click", function(event){
   event.preventDefault();
   $(`#error-message`).remove()
@@ -53,17 +53,24 @@ $("#addItem").on("click", function(event){
         $("#price").after(errorAlert);
         return;
       }
-
+  const upc = $("#upc").val().trim();
+  
   database.ref(`/itemList`).push({
     item: itemName,
     quantity: quantity,
     category: category,
     location: location,
     price: price,
+    upc: upc,
     dateAdded: firebase.database.ServerValue.TIMESTAMP,
   });
 
+
   $(`.form-control`).val('');
+
+  document.getElementById("addNewItem").reset()
+  displayTable();
+
 });
 
 // Function to create table head, form input, and the table body to display the database data.
@@ -73,7 +80,7 @@ function createTable() {
     const table = $(`<table class="table">`)
     const tableHead = $(`<thead>`);
     const tHeadRow = $(`<tr>`);
-    const tableHeaders = ["Item","Quantity","Location","Category","Price"]
+    const tableHeaders = ["Item","Quantity","Location","Category","Price","UPC"]
     for (i of tableHeaders) {
         const tHeader = $(`<th>`)
           tHeader.html(i)
@@ -83,7 +90,7 @@ function createTable() {
     tableHead.append(tHeadRow);
 
     const formRow = $(`<tr>`);
-    const formPlaceholders = ["Milk","#","Location","Category","Price"]
+    const formPlaceholders = ["Milk","#","Location","Category","Price","UPC"]
     for (let i = 0; i < tableHeaders.length; i++){
       const tCol = $(`<th>`);
       const input = $(`<input>`);
@@ -113,8 +120,7 @@ function createTable() {
     $(`#displayDiv`).append(table);
 }
 
-
-// Appends all Firebase datat to the table
+// Appends all Firebase data to the table
 function displayTable() {
   createTable();
 
@@ -124,7 +130,7 @@ function displayTable() {
       const category = childSnapshot.val().category
       const location = childSnapshot.val().location
       const price = childSnapshot.val().price
-      
+      const upc = childSnapshot.val().upc
 
       const quantAdd = $(`<button class='button button1' data-item="${item}">`).html("+");
       const quantSlash = $("<span></span>").html("/");
@@ -133,11 +139,12 @@ function displayTable() {
       const deleteButton = $("<button class='button deleteButtons' data-toggle='modal' data-target='#deleteModal'>").html("✘")
       const newRow = $("<tr>").append(
         
-          $(`<td data-item="${item}">`).html(item),
-          $(`<td data-item="${item}">`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
-          $(`<td data-item="${item}">`).html(location),
-          $(`<td data-item="${item}">`).html(category),
-          $(`<td data-item="${item}">`).html(price).append(deleteButton)
+          $(`<td data-item=${item}>`).html(item),
+          $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
+          $(`<td data-item=${item}>`).html(location),
+          $(`<td data-item=${item}>`).html(category),
+          $(`<td data-item=${item}>`).html(price),
+          $(`<td data-item=${item}>`).html(upc).append(deleteButton)
         );
         
         $("#itemBody").prepend(newRow);
@@ -160,7 +167,7 @@ function category() {
     }
 }
 
-// Search funtionaltiy at the top
+// Search functionality at the top
 $(document).ready(function(){
   $("#searchInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -170,7 +177,7 @@ $(document).ready(function(){
   });
 });
 
-// filter based on click
+// Filter based on click
 $(".listItem").on("click", function(){
     $(`#displayDiv`).empty();
     displayTable();

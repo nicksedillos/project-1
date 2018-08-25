@@ -17,22 +17,33 @@ let dataStore = [];
 
 function drawChart() {
 
-// Create the data table.
-let data = new google.visualization.DataTable();
-// Set chart options
-let barchart_options = {'title':'Quantity Stored',
-                'width':1000,
-                'height':400};
+    // Create the data table.
+    let data = new google.visualization.DataTable();
+    // Set chart options
+    let barchart_options = {'title':'Quantity Stored',
+                    'width':1000,
+                    'height':400};
 
-data.addColumn('string', 'Item');
-data.addColumn('number', 'Quantity');
-itemlist.on("child_added", function(snapshot) {
-    data.addRows([
-        [snapshot.val().item, parseInt(snapshot.val().quantity)],
-    ])
-    var barChart = new google.visualization.BarChart(document.getElementById('displayDiv'));
-        barChart.draw(data, barchart_options);
+    data.addColumn('string', 'Item');
+    data.addColumn('number', 'Quantity');
+    itemlist.on("child_added", function(snapshot) {
+        data.addRows([
+            [snapshot.val().item, parseInt(snapshot.val().quantity)],
+        ])
+        var barChart = new google.visualization.BarChart(document.getElementById('displayDiv'));
+            barChart.draw(data, barchart_options);
 
-  });
+    });
 
 }
+
+// Function for the table to update on any page
+database.ref(`/itemList`).on(`child_changed`, function(snapshot){
+    const currentDisplay = $(`#mainHeader`).text().trim();
+    console.log(currentDisplay);
+    if (currentDisplay === "Item List"){
+      displayTable();
+    } else {
+        drawChart();
+    }
+  })
