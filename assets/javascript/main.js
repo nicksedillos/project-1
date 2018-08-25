@@ -69,7 +69,7 @@ $("#addItem").on("click", function(event){
 // Function to create table head, form input, and the table body to display the database data.
 function createTable() {
     $(`#displayDiv`).empty();
-    
+
     const table = $(`<table class="table">`)
     const tableHead = $(`<thead>`);
     const tHeadRow = $(`<tr>`);
@@ -119,8 +119,6 @@ function displayTable() {
   createTable();
 
   database.ref(`/itemList`).on("child_added", function(childSnapshot) {
-      console.log(childSnapshot.val());
-
       const item = childSnapshot.val().item
       const quantity = childSnapshot.val().quantity
       const category = childSnapshot.val().category
@@ -187,10 +185,7 @@ $(".headerName").on("click", function(){
    });
 });
 
-$(`body`).on(`click`, `#itemList`, function(){
-  if($(this).text() === "Item List"){
-    return;
-  } else {
+$(`body`).on(`click`, `#itemListSwitch`, function(){
     displayTable();
-  }
+    $(`#mainHeader`).html(`Item List`)
 })
