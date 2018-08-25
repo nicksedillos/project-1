@@ -76,15 +76,61 @@ tbody {
     border-radius: 4px;
     color: white;
     padding: 6px;
+    font-weight: bolder;
     text-align: center;
+    align-content: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-
-}
-.dropdown:hover>.dropdown-menu {
-    display: block;
     vertical-align: text-bottom;
 }
 
+.deleteButtons {
+    background-color: #ffbb99;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 6px;
+    font-weight: bolder;
+    font-size: 2em;
+    text-align: center;
+    align-content: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    vertical-align: text-bottom;
+    float: right;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+
+#deleteBox {
+    background-color: #ffffe6;
+}
+
+#deleteButton {
+    background-color: #ffbb99;
+    border-color: #ffffff;
+}
+
+#cancelButton {
+    background-color: #ffbb99;
+    border-color: #ffffff;
+}
+
+.navStyle {
+    color: #ffffe6 !important;
+}
+
+#siteHeader {
+    font-size: 90px;
+    color: #ffffff;
+    /* text-shadow: 2px 2px #e6ffe6; */
+    text-shadow: 2px 2px #ffe6cc;
+    text-align: center;
+    font-family: 'Niconne', cursive;
+}

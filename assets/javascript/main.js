@@ -132,13 +132,14 @@ function displayTable() {
       const quantSlash = $("<span></span>").html("/");
       const quantSub = $("<button class='button button2'>").html("-");
       const quantSpace = $("<span></span>").html(" ")
+      const deleteButton = $("<button class='button deleteButtons' data-toggle='modal' data-target='#deleteModal'>").html("✘")
       const newRow = $("<tr>").append(
         
           $(`<td data-item=${item}>`).html(item),
           $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
           $(`<td data-item=${item}>`).html(location),
           $(`<td data-item=${item}>`).html(category),
-          $(`<td data-item=${item}>`).html(price)
+          $(`<td data-item=${item}>`).html(price).append(deleteButton)
         );
         
         $("#itemBody").prepend(newRow);
