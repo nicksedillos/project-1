@@ -34,6 +34,11 @@ input {
     color: #ffeeee;
     border-radius: 4px;
 }
+
+#searchInput {
+    /* display: block; */
+    margin-right: 10px;
+}
 table {
 
     font-family: 'Fredericka the Great', cursive;
@@ -133,4 +138,8 @@ tbody {
     text-shadow: 2px 2px #ffe6cc;
     text-align: center;
     font-family: 'Niconne', cursive;
+}
+
+.navbar-light .navbar-toggler {
+    background-color: #ffbb99;
 }
