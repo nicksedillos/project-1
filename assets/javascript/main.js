@@ -64,6 +64,7 @@ $("#addItem").on("click", function(event){
   });
 
   document.getElementById("addNewItem").reset()
+  displayTable();
 });
 
 // Function to create table head, form input, and the table body to display the database data.
@@ -113,8 +114,7 @@ function createTable() {
     $(`#displayDiv`).append(table);
 }
 
-
-// Appends all Firebase datat to the table
+// Appends all Firebase data to the table
 function displayTable() {
   createTable();
 
