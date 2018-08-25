@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css"/>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 
@@ -63,7 +64,8 @@
                                 Item List
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Analytics</a>
+                                <a class="dropdown-item" id="itemListSwitch" href="#">Item List</a>
+                                <a class="dropdown-item" id="analyticsSwitch" href="#">Analytics</a>
                             </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -105,6 +107,7 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- Custom Javascript-->
 <script src="assets/javascript/main.js"></script>
+<script src="assets/javascript/analytics.js"></script>
 
 </body>
 </html>
