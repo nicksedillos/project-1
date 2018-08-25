@@ -126,18 +126,18 @@ function displayTable() {
       const price = childSnapshot.val().price
       
 
-      const quantAdd = $("<button class='button button1'>").html("+");
+      const quantAdd = $(`<button class='button button1' data-item="${item}">`).html("+");
       const quantSlash = $("<span></span>").html("/");
-      const quantSub = $("<button class='button button2'>").html("-");
+      const quantSub = $(`<button class='button button2' data-item="${item}">`).html("-");
       const quantSpace = $("<span></span>").html(" ")
       const deleteButton = $("<button class='button deleteButtons' data-toggle='modal' data-target='#deleteModal'>").html("✘")
       const newRow = $("<tr>").append(
         
-          $(`<td data-item=${item}>`).html(item),
-          $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
-          $(`<td data-item=${item}>`).html(location),
-          $(`<td data-item=${item}>`).html(category),
-          $(`<td data-item=${item}>`).html(price).append(deleteButton)
+          $(`<td data-item="${item}">`).html(item),
+          $(`<td data-item="${item}">`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
+          $(`<td data-item="${item}">`).html(location),
+          $(`<td data-item="${item}">`).html(category),
+          $(`<td data-item="${item}">`).html(price).append(deleteButton)
         );
         
         $("#itemBody").prepend(newRow);
@@ -189,3 +189,38 @@ $(`body`).on(`click`, `#itemListSwitch`, function(){
     displayTable();
     $(`#mainHeader`).html(`Item List`)
 })
+
+// Function for Increment button on each item
+$(`body`).on(`click`,`.button1`,function() {
+    const itemLookup = $(this).attr(`data-item`)
+
+    var query = database.ref(`itemList`)
+    query.orderByChild(`item`).equalTo(itemLookup).on(`child_added`, function(snapshot){
+        const updateKey = snapshot.key;
+        var quantityRef = database.ref(`itemList/${updateKey}/quantity`)
+        quantityRef.transaction(function (current_value) {
+          return parseInt(current_value) + 1;
+        })
+        displayTable();
+    });
+});
+
+// Function for Decrement button on each line
+$(`body`).on(`click`,`.button2`,function() {
+  const itemLookup = $(this).attr(`data-item`)
+
+  const query = database.ref(`itemList`)
+  query.orderByChild(`item`).equalTo(itemLookup).on(`child_added`, function(snapshot){
+      const updateKey = snapshot.key;
+      const quantityRef = database.ref(`itemList/${updateKey}/quantity`)
+      quantityRef.transaction(function (current_value) {
+        // If current value is equal to zero, do not decrement
+        if(parseInt(current_value) === 0){
+          return;
+        } else{
+        return parseInt(current_value) - 1;
+        }
+      })
+      displayTable();
+  });
+});
