@@ -65,8 +65,12 @@ $("#addItem").on("click", function(event){
     dateAdded: firebase.database.ServerValue.TIMESTAMP,
   });
 
+
+  $(`.form-control`).val('');
+
   document.getElementById("addNewItem").reset()
   displayTable();
+
 });
 
 // Function to create table head, form input, and the table body to display the database data.
@@ -175,6 +179,15 @@ $(document).ready(function(){
 
 // Filter based on click
 $(".listItem").on("click", function(){
+    $(`#displayDiv`).empty();
+    displayTable();
+
+    if($(".listAnalytics").attr("id") == "analyticsSwitch") {
+      $(`#mainHeader`).html(`Analytics`);
+    }
+    else {
+      $(`#mainHeader`).html(`Item List`)
+    }
      clicked = $(this).text().toLowerCase();
     $("#itemBody tr").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
