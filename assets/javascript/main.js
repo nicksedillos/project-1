@@ -132,6 +132,16 @@ function displayTable() {
       const price = childSnapshot.val().price
       const upc = childSnapshot.val().upc
 
+      // create array to check for dups (not working)
+      const locationArray = [];
+      const categoryArray = [];
+      locationArray.push(location);
+      categoryArray.push(category);
+      console.log(locationArray);
+      console.log(categoryArray);
+
+      const categoryDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${category}">`).html(category);
+      const locationDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${location}">`).html(location);
       const quantAdd = $(`<button class='button button1' data-item="${item}">`).html("+");
       const quantSlash = $("<span></span>").html("/");
       const quantSub = $(`<button class='button button2' data-item="${item}">`).html("-");
@@ -149,7 +159,20 @@ function displayTable() {
         
         $("#itemBody").prepend(newRow);
 
-    }, function(errorObject) {
+        // adds new locations and category to dropdowns (has duplicates though)
+        $(`#locationDropdown`).append(locationDrop);
+        $(`#categoryDropdown`).append(categoryDrop);
+
+        // for(var i = 0; i < locationArray.length; i++) { 
+        //     if(locationArray[i] !== location) 
+        //     $(`#locationDropdown`).append(locationDrop);
+        // }
+        // for(var i = 0; i < categoryArray.length; i++) { 
+        //   if(categoryArray[i] !== category) 
+        //   $(`#categoryDropdown`).append(categoryDrop);
+        // }
+      }, 
+    function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
   }); 
 }
@@ -240,3 +263,5 @@ $(`body`).on(`click`,`.button2`,function() {
       displayTable();
   });
 });
+
+
