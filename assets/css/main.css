@@ -143,3 +143,13 @@ tbody {
 .navbar-light .navbar-toggler {
     background-color: #ffbb99;
 }
+
+.navbar-light .navbar-nav .nav-link {
+    color: #ffbb99;
+}
+
+@media all and (max-width: 990px) { 
+    .pipes {
+        display: none;
+    }
+}
