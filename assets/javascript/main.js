@@ -13,7 +13,9 @@ firebase.initializeApp(config);
 const database = firebase.database();
 let clicked = null;
 let locationStorage = [];
+let uniqueLocation = [];
 let categoryStorage = [];
+let uniqueCategory = [];
 
 // Add Item functionality 
 $("#addItem").on("click", function(event){
@@ -131,24 +133,16 @@ function displayTable() {
       const location = childSnapshot.val().location
       const price = childSnapshot.val().price
       const upc = childSnapshot.val().upc
+      // Push to base storages;
+      categoryStorage.push(category);
+      locationStorage.push(location);
 
-      // create array to check for dups (not working)
-      const locationArray = [];
-      const categoryArray = [];
-      locationArray.push(location);
-      categoryArray.push(category);
-      console.log(locationArray);
-      console.log(categoryArray);
-
-      const categoryDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${category}">`).html(category);
-      const locationDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${location}">`).html(location);
       const quantAdd = $(`<button class='button button1' data-item="${item}">`).html("+");
       const quantSlash = $("<span></span>").html("/");
       const quantSub = $(`<button class='button button2' data-item="${item}">`).html("-");
       const quantSpace = $("<span></span>").html(" ")
-      const deleteButton = $("<button class='button deleteButtons' data-toggle='modal' data-target='#deleteModal'>").html("✘")
-      const newRow = $("<tr>").append(
-        
+      const deleteButton = $(`<button class='button deleteButtons' data-toggle='modal' data-target="${item}">`).html("✘")
+      const newRow = $("<tr>").append(     
           $(`<td data-item=${item}>`).html(item),
           $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
           $(`<td data-item=${item}>`).html(location),
@@ -158,26 +152,35 @@ function displayTable() {
         );
         
         $("#itemBody").prepend(newRow);
-
-        // adds new locations and category to dropdowns (has duplicates though)
-        $(`#locationDropdown`).append(locationDrop);
-        $(`#categoryDropdown`).append(categoryDrop);
-
-        // for(var i = 0; i < locationArray.length; i++) { 
-        //     if(locationArray[i] !== location) 
-        //     $(`#locationDropdown`).append(locationDrop);
-        // }
-        // for(var i = 0; i < categoryArray.length; i++) { 
-        //   if(categoryArray[i] !== category) 
-        //   $(`#categoryDropdown`).append(categoryDrop);
-        // }
+        // Find a better place to run instead of everytime it loops through the database.
+        // Due to it not being put on the stack, it gets setback.
+        removeDuplicates();
       }, 
     function(errorObject) {
     console.log("Errors handled: " + errorObject.code);
-  }); 
+  });
 }
 // Initiates the table creation
 displayTable();
+
+function removeDuplicates(){
+  $(`#categoryDropdown`).empty();
+  $(`#locationDropdown`).empty();
+
+  uniqueCategory = [... new Set(categoryStorage)];
+  uniqueLocation = [... new Set(locationStorage)];
+  uniqueCategory.sort();
+  uniqueLocation.sort();
+
+  for(i of uniqueCategory){
+      const categoryDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${i}" data-type="category">`).html(i);
+        $(`#categoryDropdown`).append(categoryDrop);
+  }
+  for(i of uniqueLocation){
+      const locationDrop = $(`<a class="dropdown-item listItem" href="#" data-location="${i}" data-type="location">`).html(i);
+      $(`#locationDropdown`).append(locationDrop);
+  }
+}
 
 // Create Location dropdown
 function category() {
@@ -200,22 +203,6 @@ $(document).ready(function(){
   });
 });
 
-// Filter based on click
-$(".listItem").on("click", function(){
-    $(`#displayDiv`).empty();
-    displayTable();
-
-    if($(".listAnalytics").attr("id") == "analyticsSwitch") {
-      $(`#mainHeader`).html(`Analytics`);
-    }
-    else {
-      $(`#mainHeader`).html(`Item List`)
-    }
-     clicked = $(this).text().toLowerCase();
-    $("#itemBody tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
-    });
-});
 // Filter table based on click.
 $(".headerName").on("click", function(){
     clicked = ""

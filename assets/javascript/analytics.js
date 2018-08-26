@@ -21,8 +21,8 @@ function drawChart() {
     let data = new google.visualization.DataTable();
     // Set chart options
     let barchart_options = {'title':'Quantity Stored',
-                    'width':1000,
-                    'height':400};
+                    'width':`100%`,
+                    'height':980};
 
     data.addColumn('string', 'Item');
     data.addColumn('number', 'Quantity');
@@ -47,3 +47,36 @@ database.ref(`/itemList`).on(`child_changed`, function(snapshot){
         drawChart();
     }
   })
+
+  // Filter based on click
+$("body").on("click",`.listItem`, function(){
+    const filterName = $(this).html()
+    const currentPage = $(`#mainHeader`).text().trim()
+    const searchType = $(this).data(`type`)
+
+    if (currentPage === "Item List"){
+        $(`#displayDiv`).empty();
+        displayTable();
+        clicked = $(this).text().toLowerCase();
+        $("#itemBody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(clicked) > -1 )
+        
+        });
+    } else if(currentPage === "Analytics"){
+        let data = new google.visualization.DataTable();
+        // Set chart options
+        let barchart_options = {'title':'Quantity Stored',
+                        'width':`100%`,
+                        'height':980};
+    
+        data.addColumn('string', 'Item');
+        data.addColumn('number', 'Quantity');
+        itemlist.orderByChild(`${searchType}`).equalTo(filterName).on("child_added", function(snapshot) {
+            data.addRows([
+                [snapshot.val().item, parseInt(snapshot.val().quantity)],
+            ])
+            var barChart = new google.visualization.BarChart(document.getElementById('displayDiv'));
+                barChart.draw(data, barchart_options);
+        });
+    }
+});
