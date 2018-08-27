@@ -64,6 +64,7 @@ $("#addItem").on("click", function(event){
     location: location,
     price: price,
     upc: upc,
+    barcodeLookupInfo: barcodeLookupInfo,
     dateAdded: firebase.database.ServerValue.TIMESTAMP,
   });
 
