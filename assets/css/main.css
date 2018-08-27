@@ -54,7 +54,8 @@ tbody {
     color:#70dbdb;
 }
 
-.navbar {
+.navbar,
+.nav-tabs {
     /* font-family: 'Baloo Bhai', cursive; */
     font-size: 1.75em;
     font-family: 'Fredericka the Great', cursive;

@@ -212,8 +212,10 @@ $(".headerName").on("click", function(){
 });
 
 $(`body`).on(`click`, `#itemListSwitch`, function(){
+    $(`#analyticsButtons`).remove();
     displayTable();
     $(`#mainHeader`).html(`Item List`)
+
 })
 
 // Function for Increment button on each item
