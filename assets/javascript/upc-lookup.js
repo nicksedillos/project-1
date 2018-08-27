@@ -4,7 +4,7 @@ Record the entire result to the associated parent item in Firebase (to minimize 
 Log this result to console.
 */
 
-const apiKey = o35yk1ejzwscfqtoq9p0hucufz3okk;
+const apiKey = "o35yk1ejzwscfqtoq9p0hucufz3okk";
 var barcodeLookupQueryURL = "https://api.barcodelookup.com/v2/products?barcode=" + upc + "&key=" + apiKey;
 
 if ((upc == `undefined`)) {
@@ -17,7 +17,7 @@ if ((upc == `undefined`)) {
 			method: "GET"
 		})
 		.then(function(response) {
-			const barcodeLookupInfo = response.data.products;
+			var barcodeLookupInfo = response.data.products;
 			console.log(barcodeLookupInfo);
 		});
 	};
