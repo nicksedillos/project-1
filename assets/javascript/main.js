@@ -70,7 +70,7 @@ $("#addItem").on("click", function(event){
 
   $(`.form-control`).val('');
 
-  document.getElementById("addNewItem").reset()
+  // document.getElementById("addNewItem").reset()
   displayTable();
 
 });
@@ -141,7 +141,7 @@ function displayTable() {
       const quantSlash = $("<span></span>").html("/");
       const quantSub = $(`<button class='button button2' data-item="${item}">`).html("-");
       const quantSpace = $("<span></span>").html(" ")
-      const deleteButton = $(`<button class='button deleteButtons' data-toggle='modal' data-target="#deleteModal">`).html("✘")
+      const deleteButton = $(`<button class='button deleteButtons' data-toggle='modal' data-target="#deleteModal" data-item="${item}">`).html("✘")
       const newRow = $("<tr>").append(     
           $(`<td data-item=${item}>`).html(item),
           $(`<td data-item=${item}>`).html(quantity).prepend(quantAdd,quantSlash,quantSub,quantSpace),
@@ -253,4 +253,17 @@ $(`body`).on(`click`,`.button2`,function() {
   });
 });
 
+$(`body`).on(`click`,`.deleteButtons`, function() {
+  const itemToDelete = $(this).attr(`data-item`);
+  const query = database.ref(`itemList`)
 
+  $(`body`).on(`click`,`#deleteButton`, function(){
+    query.orderByChild(`item`).equalTo(itemToDelete).on(`child_added`, function(snapshot){
+      const updateKey = snapshot.key;
+      const quantityRef = database.ref(`itemList/${updateKey}`)
+
+      quantityRef.remove();        
+      displayTable();
+    }); 
+  });
+});
