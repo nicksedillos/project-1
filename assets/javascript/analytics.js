@@ -104,7 +104,6 @@ function drawColumnChart() {
 // Function for the table to update on any page
 database.ref(`/itemList`).on(`child_changed`, function(snapshot){
     const currentDisplay = $(`#mainHeader`).text().trim();
-    console.log(currentDisplay);
     if (currentDisplay === "Item List"){
       displayTable();
     } else {
