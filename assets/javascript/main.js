@@ -61,11 +61,13 @@ $("#addItem").on("click", function(event){
     const apiKey = "o35yk1ejzwscfqtoq9p0hucufz3okk";
     var barcodeLookupQueryURL = "https://api.barcodelookup.com/v2/products?barcode=" + upc + "&key=" + apiKey;
     
-    if ((upc == `undefined`)) {
-      console.log(`UPC is not defined.`);
-    } else {
-      function lookUpUPC() {
-        console.log(`Looking up UPC#${upc}.`)
+    console.log(`UPC is ${upc}.`);
+
+    // if ((upc == "undefined")) {
+    //   console.log(`UPC is not defined.`);
+    // } else {
+    //   function lookUpUPC() {
+        console.log(`Looking up UPC#${upc}.`);
         $.ajax({
           url: barcodeLookupQueryURL,
           method: "GET"
@@ -74,8 +76,8 @@ $("#addItem").on("click", function(event){
           var barcodeLookupInfo = response.data.products;
           console.log(barcodeLookupInfo);
         });
-      };
-    }
+    //   };
+    // }
 
   database.ref(`/itemList`).push({
     item: itemName,
@@ -271,5 +273,3 @@ $(`body`).on(`click`,`.button2`,function() {
       displayTable();
   });
 });
-
-
