@@ -1,4 +1,4 @@
-# Project #1: “Home Manager”
+# “Home Manager”
 
 A collaborative project made for the University of Minnesota Full Stack Web Development Coding Boot Camp, August 2018
 
